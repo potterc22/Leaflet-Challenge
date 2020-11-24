@@ -28,10 +28,10 @@ d3.json(queryURL, function(response) {
         var location = response.features[i].geometry;
 
         earthquakes.push(
-            L.circle(location.coordinates, {
+            L.circle([location.coordinates[1], location.coordinates[0]], {
                 stroke: false,
                 fillOpacity: 0.75,
-                color: 'black',
+                color: "black",
                 fillColor: getColor(location.coordinates[2]),
                 radius: markerSize(response.features[i].properties.mag)
             }).bindPopup("<h2>" + response.features[i].properties.place + 
