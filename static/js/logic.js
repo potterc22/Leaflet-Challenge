@@ -41,7 +41,7 @@ d3.json(queryURL, function(response) {
     }
     
     console.log(earthquakes)
-    // Adding tile layer to the map
+    // Adding light layer variable
     var lightMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         tileSize: 512,
@@ -51,12 +51,34 @@ d3.json(queryURL, function(response) {
         accessToken: API_KEY
     });
 
+    // Adding satellite layer variable
+    var satelliteMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 18,
+        zoomOffset: -1,
+        id: "mapbox/satellite-v9",
+        accessToken: API_KEY
+    });
+
+    // Adding outdoors layer variable
+    var outdoorMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 18,
+        zoomOffset: -1,
+        id: "mapbox/outdoors-v11",
+        accessToken: API_KEY
+    });    
+
     // Create a separate layer group for earthquakes below. 
     var earthquakeLayer = L.layerGroup(earthquakes)
     console.log(earthquakeLayer)
     // Create a baseMaps object to contain the streetmap and darkmap
     var baseMaps = {
-        LightMap: lightMap
+        Grayscale: lightMap,
+        Satellite: satelliteMap,
+        Outdoors: outdoorMap
     }
 
     var overlayMaps = {
