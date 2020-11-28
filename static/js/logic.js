@@ -12,7 +12,7 @@ function getColor(data) {
 
 // Function to determine marker size based on population
 function markerSize(magnitude) {
-      return magnitude * 10000;
+      return magnitude * 25000;
 }
 
 // Grab the data with d3
