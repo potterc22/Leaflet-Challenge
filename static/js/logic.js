@@ -88,10 +88,30 @@ d3.json(queryURL, function(response) {
     // Creating map object
     var myMap = L.map("map", {
         center: [28,2],
-        zoom: 2,
+        zoom: 3,
         layers: [lightMap, earthquakeLayer]
     });
 
     // Create a layer control, containing our baseMaps and overlayMaps, and add them to the map
     L.control.layers(baseMaps, overlayMaps).addTo(myMap)
+
+    // create the legend
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend'),
+            limits = [-10, 10, 30, 50, 70, 90],
+            labels = [];
+        
+        for (var i = 0; i < limits.length; i++) {
+            labels.push(
+                '<div class="labels"><i style="background:' + getColor(limits[i] + 1) + '"></i>' + 
+                limits[i] + (limits[i + 1] ? '&ndash;' + limits[i + 1] + '<br>' : '+') + '</div>');
+        }
+
+        div.innerHTML += '<ul>' + labels.join('') + '</ul>'
+        return div;
+    }
+
+    legend.addTo(myMap)
 });
