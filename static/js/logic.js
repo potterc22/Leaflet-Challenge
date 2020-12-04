@@ -1,4 +1,4 @@
-// chose to do Earthquakes from the past 7 days
+// I chose to do Earthquakes from the past 7 days
 var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
 function getColor(data) {
@@ -14,6 +14,11 @@ function getColor(data) {
 function markerSize(magnitude) {
       return magnitude * 25000;
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Create Base Layers
 
 
 // Adding light layer variable
@@ -46,6 +51,11 @@ var outdoorMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x
     accessToken: API_KEY
 });    
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Create Initial Map
 
 // Create a baseMaps object to contain the streetmap and darkmap
 var baseMaps = {
@@ -89,7 +99,7 @@ d3.json(queryURL, function(response) {
         var location = response.features[i].geometry;
 
         L.circle([location.coordinates[1], location.coordinates[0]], {
-            stroke: false,
+            // stroke: false,
             fillOpacity: 0.75,
             color: "black",
             fillColor: getColor(location.coordinates[2]),
@@ -109,21 +119,21 @@ platesURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJ
 
 // Grab the tectonic plates data with d3
 d3.json(platesURL, function(response) {
-
-    // Loop through data
-    for (var i = 0; i < response.features.length; i++) {
-        // create line variable with all the coordinates
-        var line = response.features[i].geometry.coordinates
-
-        L.polyline(line, {
-            color: "orange"
-        }).bindPopup("<h3> Tectonic Plate Name: " + response.features[i].properties.PlateName + "</h3>").addTo(layers.TectonicPlates)   
-    }
+    L.geoJson(response, {
+        style: {
+            opacity: .35,
+            weight: 2
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h3> Tectonic Plate Name: " + feature.properties.PlateName + "</h3>")
+        }
+    }).addTo(layers.TectonicPlates)   
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// create the legend https://leafletjs.com/examples/choropleth/
+// create the legend 
+// https://leafletjs.com/examples/choropleth/
 // https://github.com/timwis/leaflet-choropleth/blob/gh-pages/examples/legend/demo.js
 
 var legend = L.control({position: 'bottomright'});
