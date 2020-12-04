@@ -102,6 +102,7 @@ d3.json(queryURL, function(response) {
             // stroke: false,
             fillOpacity: 0.75,
             color: "black",
+            weight: 1,
             fillColor: getColor(location.coordinates[2]),
             radius: markerSize(response.features[i].properties.mag)
         }).bindPopup("<h2>" + response.features[i].properties.place + 
