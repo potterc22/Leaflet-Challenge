@@ -91,6 +91,27 @@ L.control.layers(baseMaps, overlayMaps).addTo(myMap)
 
 // Grab the data with d3
 d3.json(queryURL, function(response) {
+    // var depth = response.features[0].geometry.coordinates[2]
+    // console.log(depth)
+    // L.geoJson(response, {
+    //     style: function(feature) {
+    //         return {
+    //             opacity: 1.25,
+    //             fillOpacity: 0.75,
+    //             color: 'black',
+    //             weight: 0.4,
+    //             fillColor: getColor(feature.geometry.coordinates[2]),
+    //             radius: markerSize(feature.properties.mag)
+    //         }
+    //     },
+    //     // use pointToLayer to create circles
+    //     pointToLayer: function(feature, latlng) {
+    //         return L.circleMarker(latlng)
+    //             .bindPopup("<h2>Location: " + feature.properties.place + 
+    //                 "</h2> <h3> Magnitude: " + feature.properties.mag + "</h3>")
+    //     }
+    // }).addTo(layers.Earthquakes)
+
 
     // Loop through data
     for (var i = 0; i < response.features.length; i++) {
