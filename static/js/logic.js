@@ -77,7 +77,7 @@ var overlayMaps = {
 
 // Creating map object
 var myMap = L.map("map", {
-    center: [28,2],
+    center: [30,-40],
     zoom: 3,
     layers: [lightMap, layers.Earthquakes, layers.TectonicPlates]
 });
